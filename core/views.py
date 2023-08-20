@@ -122,59 +122,78 @@ def update_cart_item_quantity(request):
         return redirect('cart')
 
 # Process payment for the user's cart
+from datetime import datetime  
 def checkout(request):
+    form = CheckoutForm(request.POST or None)  # Initialize form regardless of request type
+
     if request.method == 'POST':
-        # Process the submitted form data
-        form = CheckoutForm(request.POST)
         if form.is_valid():
+            print("Form is valid")
             payment_method = form.cleaned_data.get('payment_method')
             
-            # Process card payment using Stripe
-            if payment_method == 'card':
-                token = request.POST.get('stripeToken')
-                stripe.api_key = settings.STRIPE_SECRET_KEY
-                try:
-                    # Create a charge on Stripe
-                    charge = stripe.Charge.create(
-                        amount=1000,  # in cents
-                        currency="usd",
-                        source=token,
-                        description="Payment for Order",
+            # Currently, only Cash on Delivery is supported
+            if payment_method == 'cash':
+                print("Processing cash payment...")
+                
+                # Retrieve the user's cart
+                cart, _ = Cart.objects.get_or_create(user=request.user)
+                cart_items = CartItem.objects.filter(cart=cart)
+                
+                print("Found cart items:", len(cart_items))
+
+                # Create and save an Order instance
+                order = Order(
+                    user=request.user, 
+                    first_name=form.cleaned_data['first_name'],
+                    last_name=form.cleaned_data['last_name'],
+                    address=form.cleaned_data['address'],
+                    zip_code=form.cleaned_data['zip_code'],
+                    city=form.cleaned_data['city'],
+                    country=form.cleaned_data['country'],
+                    phone=form.cleaned_data['phone'],
+                    email=form.cleaned_data['email'],
+                    payment_method=payment_method
+                )
+                order.save()
+                print("Order saved:", order.id) 
+
+                # For each cart item, create an OrderItem instance
+                for item in cart_items:
+                    total_price = item.product.price * item.quantity
+                    OrderItem.objects.create(
+                        order=order, 
+                        product=item.product, 
+                        quantity=item.quantity, 
+                        total_price=total_price
                     )
-                except stripe.error.CardError as e:
-                    # Handle card errors
-                    messages.error(request, "Card error: " + str(e))
-                    return redirect('checkout')
-            # Handle cash on delivery payment method
-            elif payment_method == 'cash':
-                pass
-            # Redirect to a success page after processing the payment
-            return redirect('order_success')  
+                    item.delete()  # remove cart item after adding to order
+
+                # Optionally, clear the session cart count
+                request.session['cart_count'] = 0
+                
+                messages.success(request, 'Your order has been placed successfully!')
+                
+                # Redirect to a success page after processing the payment
+                return redirect('order_success')
     else:
+        print("Form is invalid", form.errors)
         form = CheckoutForm()
     # Render the checkout template with the form
     return render(request, 'checkout.html', {'form': form})
 
-# Process payment using Stripe
+# Process payment (currently only handles Cash on Delivery)
 def payment(request):
     if request.method == 'POST':
-        token = request.POST.get('stripeToken')
-        stripe.api_key = settings.STRIPE_SECRET_KEY
-        try:
-            # Create a charge on Stripe
-            charge = stripe.Charge.create(
-                amount=1000,  # in cents
-                currency="usd",
-                source=token,
-                description="Payment for Order",
-            )
-        except stripe.error.CardError as e:
-            # Handle card errors
-            messages.error(request, "There was an error processing your payment: " + str(e))
-            return redirect('checkout')
-    # Render the payment result template with the charge details
-    return render(request, 'payment_result.html', {'charge': charge})
+        # For now, we're only supporting Cash on Delivery, so there's no need to interact with Stripe.
+        # When card functionality is added back, we will integrate Stripe here.
+        pass
+    
+    # Redirect to the order success page
+    return redirect('order_success')
 
 # Display a success page after processing payment
 def order_success(request):
-    return render(request, 'payment_result.html')
+    # Render the order success page. This will tell the user that their order was successful and will be delivered COD.
+    return render(request, 'payment_result.html', {'message': 'Your order has been placed successfully and will be delivered Cash On Delivery.'})
+
+

@@ -9,6 +9,11 @@ class CheckoutForm(forms.Form):
     country = forms.CharField(max_length=50, label='Country')
     phone = forms.CharField(max_length=20, label='Phone Number')
     email = forms.EmailField(label='Email Address')
+    PAYMENT_CHOICES = [
+        ('cash', 'Cash on Delivery'),
+        # other choices...
+    ]
+    payment_method = forms.ChoiceField(choices=PAYMENT_CHOICES)
 
 
 class UpdateQuantityForm(forms.Form):
