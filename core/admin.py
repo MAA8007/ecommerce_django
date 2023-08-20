@@ -1,10 +1,10 @@
 from django.contrib import admin
-from .models import Product, Order,OrderItem
+from .models import Product, Order,OrderItem,Category
 
 
 class OrderItemAdmin(admin.ModelAdmin):
     list_display = ('id', 'order', 'product', 'quantity', 'total_price')
-    
+
 class OrderItemInline(admin.TabularInline): # or use admin.StackedInline for a different display style
     model = OrderItem
     extra = 1  # Number of empty forms to display
@@ -16,6 +16,8 @@ class OrderAdmin(admin.ModelAdmin):
 admin.site.register(Order, OrderAdmin)
 admin.site.register(OrderItem, OrderItemAdmin)
 admin.site.register(Product)
+admin.site.register(Category)
+
 
 
 

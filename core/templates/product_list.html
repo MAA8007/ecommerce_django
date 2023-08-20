@@ -6,6 +6,10 @@
     <title>Document</title>
 </head>
 <body>
+    {% for category in categories %}
+    <a href="{% url 'product_list_by_category' category.id %}">{{ category.name }}</a>
+{% endfor %}
+
     <span id="cart_count">{{ cart_count }}</span>
 
 
@@ -14,11 +18,13 @@
     <a href="{% url 'register' %}">register</a>
     <a href="{% url 'password_change' %}">password_change</a>
     <a href="{% url 'cart' %}">cart</a>
+    
     {% for product in products %}
     <div>
         <img src="{{ product.image.url }}" alt="{{ product.name }}" width="100">
         <h2>{{ product.name }}</h2>
         <p>{{ product.description }}</p>
+        <p>{{ product.category }}</p>
         <p>Price: ${{ product.price }}</p>
         <a href="{% url 'product_detail' product.id %}">View Details</a>
 
@@ -31,6 +37,9 @@
 
     </div>
 {% endfor %}
+
+
+
 
 </body>
 </html>

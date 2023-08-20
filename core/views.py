@@ -3,22 +3,31 @@ from django.shortcuts import render, redirect
 from .models import *
 from django.contrib.auth.forms import UserCreationForm
 from .forms import CheckoutForm, UpdateQuantityForm
-from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
 from django.urls import reverse_lazy
 from django.views import generic
-import stripe
 
 # Display a list of all products
-def product_list(request):
-    # Fetch all the products from the database
-    products = Product.objects.all()
-    # Get the cart count from the session (or default to 0 if not set)
+def product_list(request, category_id=None):
+    # If a category_id is provided, filter products by that category
+    if category_id:
+        products = Product.objects.filter(category_id=category_id)
+    else:
+        products = Product.objects.all()
+    
     cart_count = request.session.get('cart_count', 0)
-    # Render the product list template with products and cart count
-    return render(request, 'product_list.html', {'products': products, 'cart_count': cart_count})
+    categories = Category.objects.all()
+
+    # Add categories to the context
+    context = {
+        'products': products,
+        'cart_count': cart_count,
+        'categories': categories
+    }
+    return render(request, 'product_list.html', context)
+
 
 # Display details of a specific product
 def product_detail(request, product_id):
