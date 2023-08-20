@@ -8,6 +8,24 @@ from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
 from django.urls import reverse_lazy
 from django.views import generic
+from django.http import HttpResponseRedirect
+
+def home(request):
+    # Fetch the categories
+    suits_category = Category.objects.get(name='Suits')
+    jeans_category = Category.objects.get(name='Jeans')
+    shirts_category = Category.objects.get(name='Shirts')
+    formal_shirts_category = Category.objects.get(name='Formal Shirts')
+    shoes_category = Category.objects.get(name='Shoes')
+    return render(request, 'home.html', {
+        'suits_category': suits_category,
+        'jeans_category': jeans_category,
+        'shirts_category': shirts_category,
+        'formal_shirts_category':formal_shirts_category,
+        'shirts_category':shirts_category,
+        'shoes_category':shoes_category
+    })
+
 
 # Display a list of all products
 def product_list(request, category_id=None):
@@ -60,7 +78,7 @@ def add_to_cart(request, product_id):
     request.session['cart_count'] = cart_count + 1
 
     # Redirect to the product list view
-    return redirect('product_list')
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
 # View the user's cart
 @login_required

@@ -1,11 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
+{% extends 'base.html' %}
+
+{% block content %}
     <form method="post" action="{% url 'checkout' %}">
 
         {% csrf_token %}
@@ -34,5 +29,6 @@
     <!-- Display a message about the upcoming card functionality -->
     <p><strong>Note:</strong> The functionality to pay with a card will be added soon.</p>
 
-</body>
-</html>
+    {% extends 'base.html' %}
+
+    {% endblock content %}

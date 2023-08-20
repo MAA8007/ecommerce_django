@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% block head %}
+<style>
+
+a {
+    text-decoration: none; /* Removes the underline */
+}
+
+a:hover {
+    text-decoration: none; /* Ensures the underline doesn't appear on hover either */
+}
+
+
+.image-container {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.image-container h1 {
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    z-index: 2;
+}
+
+.cat_name{
+    text-decoration: none;
+    color: white;
+    transition: all 0.3s ease;
+}
+
+.cat_name:hover{
+    transform: translateY(-10px);
+    color: white;
+}
+
+
+h1{
+    font-size: 08rem;
+}
+
+</style>
+{% endblock %}
+
+{% block content %}
+
+<a>
+    <div class="image-container" style="background-image: url('https://images.unsplash.com/photo-1612744192242-35cd7a7d35e6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1773&q=80');">
+        <h1 class="welcome">Welcome!</h1>
+    </div>
+</a>
+
+<a href="{% url 'product_list_by_category' shirts_category.id %}">
+    <div class="image-container" style="background-image: url('https://images.unsplash.com/photo-1620799139834-6b8f844fbe61?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1672&q=80');">
+        <h1><span class='cat_name' style="color: black;">{{ shirts_category.name }}</span></h1>
+    </div>
+</a>
+
+<a href="{% url 'product_list_by_category' jeans_category.id %}">
+    <div class="image-container" style="background-image: url('https://images.unsplash.com/photo-1580644228275-2b826dbec5bf?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80');">
+        <h1><span class='cat_name'>{{ jeans_category.name }}</span></h1>
+    </div>
+</a>
+
+<a href="{% url 'product_list_by_category' shoes_category.id %}">
+    <div class="image-container" style="background-image: url('https://images.unsplash.com/photo-1460353581641-37baddab0fa2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1771&q=80');">
+        <h1><span class='cat_name'>{{ shoes_category.name }}</span></h1>
+    </div>
+</a>
+
+<a href="{% url 'product_list_by_category' suits_category.id %}">
+    <div class="image-container" style="background-image: url('https://images.unsplash.com/photo-1611937663641-5cef5189d71b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8c3VpdHxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=800&q=60');">
+        <h1><span class='cat_name'>{{ suit_category.name }}</span></h1>
+    </div>
+</a>{% endblock %}
