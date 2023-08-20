@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body> 
+    
+    <a href="{% url 'login' %}">login</a>
+    <a href="{% url 'logout' %}">logout</a>
+    <a href="{% url 'register' %}">register</a>
+    <a href="{% url 'password_change' %}">password_change</a>
+    
+    <img src="{{ product.image.url }}" alt="{{ product.name }}" width="300">
+    <h2>{{ product.name }}</h2>
+    <p>{{ product.description }}</p>
+    <p>Price: ${{ product.price }}</p>
+    <p>In stock: {{ product.stock }}</p>
+
+    <form action="{% url 'add_to_cart' product.id %}" method="post">
+
+        {% csrf_token %}
+        <input type="hidden" name="product_id" value="{{ product.id }}">
+        <input type="submit" value="Add to Cart">
+    </form>
+
+
+</body>
+</html>
