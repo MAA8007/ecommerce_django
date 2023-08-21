@@ -57,3 +57,12 @@ class CartItem(models.Model):
     quantity = models.PositiveIntegerField()
 
 
+class Size(models.Model):
+    size = models.CharField(max_length=10)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+
+    class Meta:
+        unique_together = ('size', 'category')
+
+    def __str__(self):
+        return self.size

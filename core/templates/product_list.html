@@ -18,6 +18,10 @@
         color: black;
     }
 
+    a:hover{
+        color: rgb(132, 132, 132);
+    }
+
     .card{
         width: 43vh;
         height: 50vh;
@@ -35,18 +39,34 @@
         text-align: center;
     }
 
+    .image-container{
+        margin-bottom: 2vh;
+    }
+
     h1{
-        padding-bottom: 1vh ;
+        padding-bottom: 2vh ;
+        font-size: 7vh;
     }
 
     .carousel-inner {
-        height: 70vh;
+        height: 0vh;
     }
 
     .carousel-inner img {
         height: 70vh;
         object-fit: cover; /* This ensures the image scales correctly within its container */
     }
+
+    .image-container {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    height: 50vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
 </style>
 {% endblock %}
 
@@ -57,17 +77,11 @@
 
 <div class="container-fluid"> <!-- Start container -->
     
-    <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
-        
-        <div class="carousel-inner">
-            {% for product in products %}
-          <div class="carousel-item active">
-            <img class="d-block w-100" src="{{ product.image.url }}" alt="First slide">
-          </div>
-          {% endfor %}
+    
 
-        </div>
-      </div>
+
+        <div class="image-container" style="background-image: url('https://images.unsplash.com/photo-1485125639709-a60c3a500bf1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80');"></div>
+
 
       <h1>{{ heading }}</h1>
 

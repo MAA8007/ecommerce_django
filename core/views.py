@@ -53,10 +53,13 @@ def product_list(request, category_id=None):
 
 # Display details of a specific product
 def product_detail(request, product_id):
-    # Fetch the specific product by its ID
     product = Product.objects.get(id=product_id)
-    # Render the product detail template with the fetched product
-    return render(request, 'product_detail.html', {'product': product})
+    
+    # Get sizes based on product's category
+    sizes = Size.objects.filter(category=product.category)
+    
+    return render(request, 'product_detail.html', {'product': product, 'sizes': sizes})
+
 
 # User registration view
 class Register(generic.CreateView):

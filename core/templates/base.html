@@ -14,25 +14,65 @@
         font-family: Montserrat;
       }
       .navbar {
-            background-color: rgba(0, 0, 0);  /* Dark background */
+            background-color: rgb(0, 0, 0);  /* Dark background */
         }
         .navbar-light .navbar-brand,
         .navbar-light .navbar-nav .nav-link {
             color: #f8f9fa;  /* Light text */
         }
-        .navbar-light .navbar-nav .nav-link:hover {
-            color: #ffc107;  /* Gold color on hover */
+ .navbar-nav .nav-link:hover {
+            color:rgb(106, 106, 106); 
+        }
+.dropdown-menu:hover {
+            color:rgb(106, 106, 106); 
+        }
+
+        .navbar-nav .nav-link:hover {
+            color:rgb(106, 106, 106); 
         }
         .navbar-brand {
             font-size: 1.5rem;  /* Larger brand text */
+            color: white;
         }
 
         .navbar-brand:hover {
-            color: gold; 
+            color: rgb(106, 106, 106); 
         }
         .navbar .dropdown-menu {
-    background-color: #000;  /* You can adjust this color as needed */
+    background-color: #000000;  /* You can adjust this color as needed */
 }
+
+
+a{
+  color: white;
+}
+
+.nav-link{
+  color: white;
+}
+.navbar-toggler {
+    border: none;
+    background: transparent !important;
+}
+
+.navbar-toggler:focus {
+    outline: none;
+}
+
+.navbar-toggler-icon {
+    background-image: none !important;
+}
+
+.navbar-toggler::before {
+    content: '≡';
+    font-size: 7vh;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+}
+
+
     </style>
     {% block head %}  
 {% endblock %}
@@ -40,12 +80,13 @@
   <body>
 
 
-    <nav class="navbar navbar-expand-lg navbar-light sticky-top">
+    <nav class="navbar navbar-expand-lg sticky-top">
         <div class="container-fluid">
           <a class="navbar-brand" href="/">E-commerce</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
-          </button>
+        </button>
+        
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
