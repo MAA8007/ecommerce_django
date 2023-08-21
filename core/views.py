@@ -31,9 +31,12 @@ def home(request):
 def product_list(request, category_id=None):
     # If a category_id is provided, filter products by that category
     if category_id:
-        products = Product.objects.filter(category_id=category_id)
+        category = Category.objects.get(id=category_id)  # Get the category using the provided category_id
+        products = Product.objects.filter(category=category)  # Use the category object to filter products
+        heading = category.name  # Use the name of the category as the heading
     else:
         products = Product.objects.all()
+        heading = "All Products"
     
     cart_count = request.session.get('cart_count', 0)
     categories = Category.objects.all()
@@ -42,7 +45,8 @@ def product_list(request, category_id=None):
     context = {
         'products': products,
         'cart_count': cart_count,
-        'categories': categories
+        'categories': categories,
+        'heading': heading
     }
     return render(request, 'product_list.html', context)
 
@@ -149,7 +153,7 @@ def update_cart_item_quantity(request):
         return redirect('cart')
 
 # Process payment for the user's cart
-from datetime import datetime  
+
 def checkout(request):
     form = CheckoutForm(request.POST or None)  # Initialize form regardless of request type
 
