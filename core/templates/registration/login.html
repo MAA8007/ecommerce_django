@@ -1,7 +1,25 @@
-<form method="post">
+
+{% extends 'base.html' %}
+
+{% block head %}
+<style>
+    form{margin-left: 10vh;}
+</style>
+{% endblock %}
+
+{% block content %}
+<form method="post" class="mt-5">
     {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Login</button>
-    <a href="{% url 'register' %}">register</a>
-    <a href="{% url 'password_change' %}">password_change</a>
+    <div class="mb-3">
+        {{ form.username.label_tag }} {{ form.username }}
+    </div>
+    <div class="mb-3">
+        {{ form.password.label_tag }} {{ form.password }}
+    </div>
+    <!-- You can continue in this manner for other form fields if any -->
+
+    <button type="submit" class="btn btn-primary">Login</button>
+    <a href="{% url 'register' %}" class="btn btn-link">Register</a>
+    <a href="{% url 'password_change' %}" class="btn btn-link">Change Password</a>
 </form>
+{% endblock %}

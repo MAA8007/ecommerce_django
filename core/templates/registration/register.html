@@ -1,7 +1,21 @@
-html
-Copy code
+
+
+
+
+{% extends 'base.html' %}
+
+{% block head %}
+<style>
+    form{margin-left: 10vh;
+        margin-top: 10vh;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
 <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit">Register</button>
+    <button type="submit" class="btn btn-primary">Register</button>
 </form>
+{% endblock %}

@@ -3,8 +3,10 @@
 {% block content %}
     {% for item in cart_items %}
 <div>
-    <h3>{{ item.product.name }}</h3>
-    <p>Price: ${{ item.product.price }}</p>
+    <div class="product-name">{{ item.product.name }}</div>
+    <div class="product-size">Size: {{ item.size.size }}</div>
+    <div class="product-quantity">Quantity: {{ item.quantity }}</div>
+    <div class="product-price">Price: ${{ item.product.price }}</div>
     <a href="{% url 'remove_from_cart' item.id %}">Remove</a>
 
     <form method="post" action="{% url 'update_cart_item_quantity' %}">

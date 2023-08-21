@@ -51,18 +51,21 @@ class Cart(models.Model):
     user = models.ForeignKey('auth.User', on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
 
+
+class Size(models.Model):
+    SIZE_TYPE_CHOICES = [
+        ('CLOTHING', 'Clothing'),
+        ('SHOE', 'Shoe'),
+    ]
+    size = models.CharField(max_length=10, unique=True)
+    size_type = models.CharField(max_length=10, choices=SIZE_TYPE_CHOICES, default='CLOTHING')
+
+    def __str__(self):
+        return self.size
+
 class CartItem(models.Model):
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField()
+    size = models.ForeignKey(Size, on_delete=models.CASCADE, null=True, blank=True)  # Add this line
 
-
-class Size(models.Model):
-    size = models.CharField(max_length=10)
-    category = models.ForeignKey(Category, on_delete=models.CASCADE)
-
-    class Meta:
-        unique_together = ('size', 'category')
-
-    def __str__(self):
-        return self.size

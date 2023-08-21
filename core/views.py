@@ -54,10 +54,10 @@ def product_list(request, category_id=None):
 # Display details of a specific product
 def product_detail(request, product_id):
     product = Product.objects.get(id=product_id)
-    
-    # Get sizes based on product's category
-    sizes = Size.objects.filter(category=product.category)
-    
+    if product.category.name == 'Shoes':
+        sizes = Size.objects.filter(size_type='SHOE')
+    else:
+        sizes = Size.objects.filter(size_type='CLOTHING')
     return render(request, 'product_detail.html', {'product': product, 'sizes': sizes})
 
 
@@ -70,22 +70,20 @@ class Register(generic.CreateView):
 # Add a product to the user's cart
 @login_required
 def add_to_cart(request, product_id):
-    # Fetch the specific product by its ID
     product = Product.objects.get(id=product_id)
-    # Retrieve or create a cart for the logged-in user
     cart, created = Cart.objects.get_or_create(user=request.user)
-    # Retrieve or create a cart item for the specified product
-    cart_item, created = CartItem.objects.get_or_create(cart=cart, product=product, defaults={'quantity': 0})
-    # Increase the quantity of the cart item by 1
+    size = Size.objects.get(id=request.POST['size'])  # Retrieve the selected size
+
+    # Check if a cart item with the same product and size already exists
+    cart_item, created = CartItem.objects.get_or_create(cart=cart, product=product, size=size, defaults={'quantity': 0})
     cart_item.quantity += 1
     cart_item.save()
 
-    # Update the cart count in the session
     cart_count = request.session.get('cart_count', 0)
     request.session['cart_count'] = cart_count + 1
 
-    # Redirect to the product list view
     return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+
 
 # View the user's cart
 @login_required

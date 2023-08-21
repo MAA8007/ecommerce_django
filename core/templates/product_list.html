@@ -93,11 +93,7 @@
           <div class="card-body">
             <h5 class="card-title"><a href="{% url 'product_detail' product.id %}">{{ product.name }}</a></h5>
             <p class="card-text">${{ product.price }}</p>
-            <form action="{% url 'add_to_cart' product.id %}" method="post">
-                {% csrf_token %}
-                <input type="hidden" name="product_id" value="{{ product.id }}">
-                <input type="submit" value="Add to Cart" class="btn">
-            </form>
+          
           </div>
         </div>
         

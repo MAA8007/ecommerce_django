@@ -20,5 +20,11 @@ admin.site.register(Category)
 
 
 
+from .models import Size
+
+@admin.register(Size)
+class SizeAdmin(admin.ModelAdmin):
+    list_display = ['size', 'size_type']
+
 
 
