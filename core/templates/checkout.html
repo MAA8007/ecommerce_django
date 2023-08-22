@@ -1,34 +1,44 @@
 {% extends 'base.html' %}
+{% load widget_tweaks %}
+
+{% block head %}
+<style>
+    .btn-login{
+        background-color: rgb(255, 255, 255);
+        border-color: black;
+        color: black;
+    }
+
+    .btn-login:hover {
+        background-color: rgb(0, 0, 0);
+        color: white;
+        border-color: black;
+    }
+
+    .form-check-input:checked + .form-check-label::before {
+        background-color: black;
+    }
+    .form-control {
+        height: 30px; 
+        width:150vh;/* Adjust this value to change the height of the input boxes */
+        padding: 5px 10px; /* Adjust padding if needed */
+    }
+
+</style>
+{% endblock %}
 
 {% block content %}
+<div class="container mt-5">
     <form method="post" action="{% url 'checkout' %}">
-
         {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Proceed to Payment</button>
+        <div class="mb-3">
+            {% for field in form %}
+            <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+            {{ field|add_class:"form-control" }}
+            {% endfor %}
+        </div>
+        <button type="submit" class="btn btn-login">Proceed to Payment</button>
     </form>
-    
-    <label for="payment_option">Payment Option:</label>
-    <select id="payment_option" name="payment_method">
-        <option value="cash" selected>Cash on Delivery</option>
-        <!-- Add more options as needed -->
-    </select>
-    
-    
 
-    {% if messages %}
-    <ul class="messages">
-        {% for message in messages %}
-        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-        {% endfor %}
-    </ul>
-    {% endif %}
-
-    <a href="{% url 'payment_result' %}">payment_result</a>
-
-    <!-- Display a message about the upcoming card functionality -->
-    <p><strong>Note:</strong> The functionality to pay with a card will be added soon.</p>
-
-    {% extends 'base.html' %}
-
-    {% endblock content %}
+</div>
+{% endblock content %}

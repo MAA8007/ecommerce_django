@@ -4,6 +4,22 @@
 {% block head %}
 <style>
     form{margin-left: 10vh;}
+    .form-check-input:checked + .form-check-label::before {
+    background-color: black;
+}
+
+    .btn-login{
+        background-color: rgb(255, 255, 255);
+        border-color: black;
+        color: black;
+    }
+
+    .btn-login:hover {
+        background-color: rgb(0, 0, 0);
+        color: white;
+        border-color: black;
+    }
+
 </style>
 {% endblock %}
 
@@ -18,7 +34,7 @@
     </div>
     <!-- You can continue in this manner for other form fields if any -->
 
-    <button type="submit" class="btn btn-primary">Login</button>
+    <button type="submit" class="btn-login">Login</button>
     <a href="{% url 'register' %}" class="btn btn-link">Register</a>
     <a href="{% url 'password_change' %}" class="btn btn-link">Change Password</a>
 </form>

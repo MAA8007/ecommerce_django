@@ -1,31 +1,153 @@
 {% extends 'base.html' %}
 
+{% block head %}
+<style>
+
+    .continue{
+        margin-top: 5vh;
+    }
+    body{
+      font-family: Montserrat;
+    }
+    .navbar {
+          background-color: rgb(0, 0, 0);  /* Dark background */
+      }
+      .navbar-light .navbar-brand,
+      .navbar-light .navbar-nav .nav-link {
+          color: #f8f9fa;  /* Light text */
+      }
+.navbar-nav .nav-link:hover {
+          color:rgb(106, 106, 106); 
+      }
+.dropdown-menu:hover {
+          color:rgb(106, 106, 106); 
+      }
+
+      .navbar-nav .nav-link:hover {
+          color:rgb(106, 106, 106); 
+      }
+      .navbar-brand {
+          font-size: 1.5rem;  /* Larger brand text */
+          color: white;
+      }
+
+      .navbar-brand:hover {
+          color: rgb(106, 106, 106); 
+      }
+      .navbar .dropdown-menu {
+  background-color: #000000;  /* You can adjust this color as needed */
+}
+
+
+a{
+color: white;
+}
+
+.nav-link{
+color: white;
+}
+.navbar-toggler {
+  border: none;
+  background: transparent !important;
+}
+
+.navbar-toggler:focus {
+  outline: none;
+}
+
+.navbar-toggler-icon {
+  background-image: none !important;
+}
+
+.navbar-toggler::before {
+  content: '≡';
+  font-size: 7vh;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: white;
+}
+
+
+.btn{
+    height: 40px;
+    width: 104px;
+    background-color: black;
+    color:white;
+
+}
+
+.btn-update{
+    height: 40px;
+    width: 102px;
+    background-color: black;
+    color:white;
+    margin-left: 10px;
+ 
+}
+
+
+</style
+{% endblock %}
+
 {% block content %}
-    {% for item in cart_items %}
-<div>
-    <div class="product-name">{{ item.product.name }}</div>
-    <div class="product-size">Size: {{ item.size.size }}</div>
-    <div class="product-quantity">Quantity: {{ item.quantity }}</div>
-    <div class="product-price">Price: ${{ item.product.price }}</div>
-    <a href="{% url 'remove_from_cart' item.id %}">Remove</a>
+<section class="h-100 h-custom" style="background-color: #eee;">
+    <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col">
+                <div class="card">
+                    <div class="card-body p-4">
+                        <div class="row">
+                            <div class="col-lg-7">
+                                <hr>
 
-    <form method="post" action="{% url 'update_cart_item_quantity' %}">
-        {% csrf_token %}
-        <input type="hidden" name="cart_item_id" value="{{ item.id }}">
-        Update Quantity: 
-        <input type="number" name="quantity" value="{{ item.quantity }}">
-        <input type="submit" value="Update">
-    </form>
-    
-</div>
-{% endfor %}
+                                <!-- ... -->
 
-<p>{{ total }}</p>
+                                {% for item in cart_items %}
+                                <div class="card mb-3">
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between flex-wrap">
+                                            <!-- Image and Product Details -->
+                                            <div class="d-flex align-items-center mb-2 mb-lg-0">
+                                                <img src="{{ item.product.image.url }}" class="img-fluid rounded-3" alt="Shopping item" style="width: 65px;">
+                                                <div class="ms-3">
+                                                    <h5>{{ item.product.name }}</h5>
+                                                    <p class="small mb-0">Size: {{ item.size.size }}</p>
+                                                </div>
+                                            </div>
 
+                                            <!-- Price and Actions -->
+                                            <div class="d-flex align-items-center flex-wrap">
+                                                <div class="me-3">
+                                                    <h5 class="mb-0">${{ item.product.price }}</h5>
+                                                </div>
+                                                <a href="#!" class="me-3" style="color: #cecece;"><i class="fas fa-trash-alt"></i></a>
+                                                <form method="post" action="{% url 'update_cart_item_quantity' %}" class="d-flex me-3 mb-2 mb-lg-0">
+                                                    {% csrf_token %}
+                                                    <input type="hidden" name="cart_item_id" value="{{ item.id }}">
+                                                    <input type="number" class="form-control" name="quantity" value="{{ item.quantity }}" style="width: 60px;">
+                                                    <input class="btn-update" type="submit" value="Update">
+                                                </form>
+                                                <a class="btn" href="{% url 'remove_from_cart' item.id %}">Remove</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                                <h3 style="padding-left: 20px;">${{ total }}</h3>
+                            </div>
+                            <div class="col-lg-5">
+                                <h5 class="mb-3 continue"><a href="{% url 'home' %}" class="text-body"><i class="fas fa-long-arrow-alt-left me-2"></i>Would you like to continue shopping?</a></h5>
+                                <a href="{% url 'home' %}" class="btn">Home</a>
 
-<h3>Total: ${{ total }}</h3>
-<a href="{% url 'checkout' %}">checkout</a>
-<a href="{% url 'product_list' %}">home</a>
-
-
+                                <h5 class="mb-3 continue"><a href="{% url 'home' %}" class="text-body"><i class="fas fa-long-arrow-alt-left me-2"></i>Would you like to checkout?</a></h5>
+                                <a href="{% url 'checkout' %}" class="btn">Checkout</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 {% endblock content %}

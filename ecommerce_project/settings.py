@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'core'
+    'core',
+    'widget_tweaks'
 ]
 
 SESSION_ENGINE = 'django.contrib.sessions.backends.db'
