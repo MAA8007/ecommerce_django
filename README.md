@@ -35,8 +35,7 @@
   
   ## Screenshots  
   
-  ### Home Page <img width="1440" alt="Screenshot 2023-08-27 at 11 04 16 PM" src="https://github.com/MAA8007/ecommerce_django/assets/106858270/77b475c6-922b-411c-851a-f06116692ec0">
-<img width="1440" alt="Screenshot 2023-08-27 at 11 04 29 PM" src="https://github.com/MAA8007/ecommerce_django/assets/106858270/11894e46-dd95-482c-9451-063d456e4bcb">
+  ### Home Page <img width="1440" alt="Screenshot 2023-08-27 at 11 04 16 PM" src="https://github.com/MAA8007/ecommerce_django/assets/106858270/77b475c6-922b-411c-851a-f06116692ec0"><img width="1440" alt="Screenshot 2023-08-27 at 11 04 29 PM" src="https://github.com/MAA8007/ecommerce_django/assets/106858270/11894e46-dd95-482c-9451-063d456e4bcb">
 *Screenshots of Home Page showing various product categories.*  
   
   ### Product List<img width="1440" alt="Screenshot 2023-08-27 at 11 05 24 PM" src="https://github.com/MAA8007/ecommerce_django/assets/106858270/74d78e60-388b-44ac-ba7c-22789703af50">
