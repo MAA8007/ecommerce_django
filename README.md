@@ -86,7 +86,7 @@
    - **Product Detail**: Detailed view of each product, including size options. 
    - **Shopping Cart**: View cart items, update their quantity, or remove them. 
    - **Checkout**: Complete the order by filling in details and choosing a payment method.
-     
+
 
    ## Contributing  Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.  
 
