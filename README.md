@@ -54,28 +54,28 @@
   ## Installation & Setup  
   
   ### Clone the Repository  
-  ```bash git clone https://github.com/yourusername/django-ecommerce.git ```  
+  ``` git clone https://github.com/yourusername/django-ecommerce.git ```  
 
   
   ### Install Dependencies  
   
   Activate your virtual environment and install the required packages.  
-  ```bash pip install -r requirements.txt ```  
+  ``` pip install -r requirements.txt ```  
 
   
   ### Database Setup  
   
   Run the following commands to apply the database migrations.  
-  ```bash python manage.py makemigrations python manage.py migrate ```  
+  ``` python manage.py makemigrations python manage.py migrate ```  
   
   
   ### Create Superuser  
   Create a superuser to manage the backend.  
-  ```bash python manage.py createsuperuser ```  
+  ``` python manage.py createsuperuser ```  
   
   
   ### Run Development Server  
-  ```bash python manage.py runserver ``` 
+  ``` python manage.py runserver ``` 
    Navigate to `http://127.0.0.1:8000/` to view the application.  
    
    
